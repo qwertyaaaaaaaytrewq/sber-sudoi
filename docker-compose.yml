@@ -1,0 +1,33 @@
+name: hermes-chat
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "${FRONTEND_PORT:-8080}:80"
+    depends_on:
+      - backend
+    networks:
+      - edge
+    restart: unless-stopped
+
+  backend:
+    build: ./backend
+    env_file:
+      - .env
+    environment:
+      DATA_DIR: /data
+      HERMES_BASE_URL: ${HERMES_DOCKER_BASE_URL:-http://host.docker.internal:8642/v1}
+      HERMES_CALLBACK_BASE_URL: http://127.0.0.1:${BACKEND_PORT:-8000}/api
+    ports:
+      - "127.0.0.1:${BACKEND_PORT:-8000}:8000"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ./data:/data
+    networks:
+      - edge
+    restart: unless-stopped
+
+networks:
+  edge: {}

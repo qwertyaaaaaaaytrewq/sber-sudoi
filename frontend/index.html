@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hermes Chat v11 — аналитика по вашим данным</title>
+  <link rel="stylesheet" href="styles.css?v=11.0.0">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">H</div>
+        <div>
+          <div class="brand-title">Hermes Chat</div>
+          <div class="brand-sub" id="model-badge">модель: —</div>
+        </div>
+      </div>
+
+      <button id="new-session" class="btn btn-ghost btn-block">Новая задача</button>
+
+      <section class="panel">
+        <h2 class="panel-title">Вложения</h2>
+        <div id="file-list" class="file-list">
+          <p class="muted">Файлы не загружены</p>
+        </div>
+        <label class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Выбрать или перетащить файлы">
+          <input type="file" id="file-input" accept=".csv,.tsv,.txt,.md,.json,.jsonl,.yaml,.yml,.xml,.pdf,.docx,.xlsx,.xls,.pptx,.png,.jpg,.jpeg,.gif,.webp,.zip,.py,.js,.ts,.html,.css,.sql" multiple hidden>
+          <span class="dropzone-icon" aria-hidden="true">
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M4 15.5v3A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5v-3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="dropzone-copy">
+            <strong>Перетащите файлы сюда</strong>
+            <span>или <u>выберите на компьютере</u></span>
+            <small>CSV, Excel, PDF, JSON и другие форматы</small>
+          </span>
+        </label>
+      </section>
+
+      <section class="panel">
+        <h2 class="panel-title">Как это работает</h2>
+        <ol class="hint-list">
+          <li>Прикрепите нужные файлы в панели слева.</li>
+          <li>Спросите словами: «топ-10 по выручке», «сводка», «построй график».</li>
+          <li>Hermes выполняет задачу своими инструментами и навыками, а в чат возвращает результат и готовые файлы.</li>
+        </ol>
+        <div class="status" id="status-line">Сервис проверяется…</div>
+      </section>
+    </aside>
+
+    <main class="chat">
+      <header class="chat-header">
+        <div>
+          <div class="chat-title">Задача для Hermes</div>
+          <div class="chat-sub" id="chat-sub">Одна задача · инструменты и навыки Hermes</div>
+        </div>
+        <div class="chat-actions">
+          <button id="clear-chat" class="btn btn-ghost">Очистить экран</button>
+        </div>
+      </header>
+
+      <div class="messages" id="messages">
+        <div class="welcome" id="welcome">
+          <h1>Опишите задачу и приложите файлы</h1>
+          <p>Например: «Сравни эти документы», «Разбери таблицу и найди аномалии»,
+             «Проверь этот проект», «Подготовь отчёт по приложенным файлам».</p>
+        </div>
+      </div>
+
+      <form class="composer" id="composer" aria-label="Сообщение Hermes">
+        <div class="attachments" id="attachments" aria-label="Файлы текущего запроса"></div>
+        <div class="composer-row">
+          <button type="button" class="btn btn-icon" id="attach-btn" title="Прикрепить файлы" aria-label="Прикрепить файлы">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m8.5 12.5 6.8-6.8a3 3 0 0 1 4.2 4.2l-8.7 8.7a5 5 0 0 1-7.1-7.1l8.5-8.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <textarea id="input" rows="1" aria-label="Текст задачи" placeholder="Опишите задачу…" autocomplete="off"></textarea>
+          <button type="submit" class="btn btn-primary" id="send-btn">
+            <span>Отправить</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <div class="composer-footer"><span id="composer-hint">Введите задачу или добавьте файл</span><span>Enter — отправить · Shift+Enter — новая строка</span></div>
+      </form>
+    </main>
+  </div>
+
+  <div class="lightbox" id="lightbox" hidden>
+    <img id="lightbox-img" alt="">
+  </div>
+
+  <div class="viewer" id="viewer" hidden>
+    <div class="viewer-card">
+      <header class="viewer-head">
+        <span class="viewer-title" id="viewer-title"></span>
+        <div class="viewer-actions">
+          <a id="viewer-download" href="#" download>Скачать</a>
+          <button type="button" id="viewer-close">Закрыть</button>
+        </div>
+      </header>
+      <div class="viewer-body" id="viewer-body"></div>
+    </div>
+  </div>
+
+  <script src="md.js?v=11.0.0"></script>
+  <script src="app.js?v=11.0.0"></script>
+</body>
+</html>
